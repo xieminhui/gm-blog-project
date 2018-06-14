@@ -26,7 +26,7 @@
 		MSGERROR = "验证码发送失败",
 		MSGSCUCCESS = "${time}秒后重发",
 		MSGTIME = 60;
-	import util from "../utils/index.js";
+	import util from "../../utils/index.js";
 
 	export default {
 		name: "codelogin",

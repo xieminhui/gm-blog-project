@@ -27,9 +27,7 @@
 	</div>
 </template>
 <script>
-import util from "../utils/index.js";
-// import { USER } from "../const/login.js";
-// let { USERNAME: username, PASSWORD: password } = USER;
+import util from "../../utils/index.js";
 export default {
   data() {
     const validateCode = (rule, value, callback) => {

@@ -25,9 +25,9 @@
     </div>
 </template>
 <script>
-import firstLogin from "../components/firstlogin.vue";
-import secondLogin from "../components/secondlogin.vue";
-import thirdLogin from "../components/thirdlogin.vue";;
+import firstLogin from "../../components/login/firstlogin.vue";
+import secondLogin from "../../components/login/secondlogin.vue";
+import thirdLogin from "../../components/login/thirdlogin.vue";;
 export default {
   components: {
     firstLogin,
