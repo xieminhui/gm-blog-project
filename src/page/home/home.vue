@@ -30,3 +30,10 @@
     }
   }
 </script>
+<style type="text/scss" lang="scss" scoped>
+  @import "../../style/base/_mixin";
+  .home_page{
+    height: 100%;
+    background: #f5f5f5;
+  }
+</style>

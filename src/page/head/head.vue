@@ -31,7 +31,7 @@
   }
 </script>
 <style type="text/scss" lang="scss" scoped>
-  @import "../../style/mixin";
+  @import "../../style/base/_mixin";
   .head_page{
     display: flex;
     position: fixed;
