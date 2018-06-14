@@ -16,7 +16,7 @@
 			</el-col>
 		</el-row>
 		<!-- <el-form-item> -->
-			<el-button class="login-btn" type="primary" @click.native.prevent="handleLogin">预览</el-button>
+			<el-button class="login-btn" type="primary" @click.native.prevent="handleLogin">登陆</el-button>
 		<!-- </el-form-item> -->
 	</el-form>
 </template>
@@ -112,9 +112,8 @@
 				}, 1000);
 			},
 			handleLogin() {
-				 this.$message({
-					message: '正在开发中...',
-					type: 'warning'
+				this.$router.push({
+					path: "home"
 				});
 				return;
 				this.$refs.loginForm.validate(valid => {
