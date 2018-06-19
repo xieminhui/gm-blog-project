@@ -13,11 +13,13 @@
           </svg>
           <h2>{{item.name}}</h2>
         </section>
-        <ul v-show="item.isshow_li">
-          <li v-for="(v, i) in item.ArticleList" :key="i" class="section_li_class">
-            {{v.name}}
-          </li>
-        </ul>
+        <transition name="show_li">
+          <ul v-if="item.isshow_li">
+              <li v-for="(v, i) in item.ArticleList" :key="i" class="section_li_class">
+                {{v.name}}
+              </li>
+          </ul>
+        </transition>
       </section>
     </section>
   </div>
@@ -100,6 +102,12 @@
           vertical-align:middle;
           margin-top:-3px;
       }
+    }
+    .show_li-enter-active,.show_li-leave-active{
+      transition: all .3s;
+    }
+    .show_li-enter,.show_li-leave-to{
+      opacity: 0;
     }
   }
 </style>
