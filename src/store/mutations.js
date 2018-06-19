@@ -9,7 +9,7 @@ export default {
   [RECORD_USERINFO](state, info){
       state.info = info;
   },
-  [SAVE_ARTICLE_ID](state, id){
-    state.leftItemClickId = id;
+  [SAVE_ARTICLE_ID](state, info){
+    state.leftItemClickId = info;
   }
 }

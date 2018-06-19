@@ -3,9 +3,9 @@
     <header class="bgclass">文章列表</header>
     <section class='bgclass'>
       <header>算法</header>
-      <section v-for="(item, index) in ulData" :key="item.id" class="section_class">
+      <section v-for="(item, index) in sf_ulData" :key="item.id" class="section_class">
         <section class="head_section">
-          <svg v-if="item.isshow_li" @click="showli(index, false)">
+          <svg v-if="item.isshow_li" @click.self="showli(index, false)">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-down"></use>
           </svg>
           <svg v-else @click="showli(index, true)">
@@ -14,9 +14,9 @@
           <h2>{{item.name}}</h2>
         </section>
         <transition name="show_li">
-          <ul v-if="item.isshow_li">
-              <li v-for="(v, i) in item.ArticleList" :key="i" class="section_li_class">
-                {{v.name}}
+          <ul v-show="item.isshow_li">
+              <li v-for="(v, i) in item.ArticleList" :key="i" class="section_li_class" >
+                <span @click="select_article(v)">{{v.name}}</span>
               </li>
           </ul>
         </transition>
@@ -26,17 +26,18 @@
 </template>
 <script>
   var Mock = require('mockjs')
+  import { mapMutations } from 'vuex'
   import { leftUl } from '../../server/mock/leftside'
   import Vue from 'vue'
   export default {
     data(){
       return{
-        ulData:[],
+        sf_ulData:[],
       }
     },
     mounted(){
-      this.ulData = Mock.mock(leftUl).data.list;
-      this.ulData.forEach(function (v) {
+      this.sf_ulData = Mock.mock(leftUl).data.list;
+      this.sf_ulData.forEach(function (v) {
         v.isshow_li = false;
       })
     },
@@ -45,13 +46,18 @@
 
     },
     component : {
-
     },
     methods: {
+      ...mapMutations([
+        'SAVE_ARTICLE_ID'
+      ]),
       showli(index, newvalue){
-        let obj = Object.assign({},this.ulData[index]);
+        let obj = Object.assign({},this.sf_ulData[index]);
         obj.isshow_li = newvalue;
-        Vue.set(this.ulData, index, obj);
+        Vue.set(this.sf_ulData, index, obj);
+      },
+      select_article(item){
+        this.SAVE_ARTICLE_ID(item);
       }
     }
   }
