@@ -3,7 +3,6 @@ import {
   SAVE_ARTICLE_ID
 } from './mutation-types'
 
-import {getItem, setItem} from '../config/myUtils'
 
 export default {
   //保存用户信息
