@@ -1,42 +1,64 @@
 <template>
   <div class="leftside_page">
     <header class="bgclass">文章列表</header>
-    <section class='bgclass' v-for="(item, index) in classifyulData" :key="inidex">
-      <header>{{item}}</header>
-      <section v-for="(item, index) in ulData" :key="item.id" class="section_class">
-        <h2>{{item.name}}</h2>
-        <ul>
-          <li v-for="(v, i) in item.ArticleList" :key="i" class="section_li_class">
-            {{v.name}}
-          </li>
-        </ul>
+    <section class='bgclass'>
+      <header>算法</header>
+      <section v-for="(item, index) in sf_ulData" :key="item.id" class="section_class">
+        <section class="head_section">
+          <svg v-if="item.isshow_li" @click.self="showli(index, false)">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-down"></use>
+          </svg>
+          <svg v-else @click="showli(index, true)">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+          <h2>{{item.name}}</h2>
+        </section>
+        <transition name="show_li">
+          <ul v-show="item.isshow_li">
+              <li v-for="(v, i) in item.ArticleList" :key="i" class="section_li_class" >
+                <span @click="select_article(v)">{{v.name}}</span>
+              </li>
+          </ul>
+        </transition>
       </section>
     </section>
   </div>
 </template>
 <script>
   var Mock = require('mockjs')
+  import { mapMutations } from 'vuex'
   import { leftUl } from '../../server/mock/leftside'
+  import Vue from 'vue'
   export default {
     data(){
       return{
-        classifyulData : ['算法', 'JS', 'CSS', 'HTML'],
-        ulData:null,
+        sf_ulData:[],
       }
     },
     mounted(){
-      this.ulData = Mock.mock(leftUl).data.list;
-      console.log(this.ulData)
+      this.sf_ulData = Mock.mock(leftUl).data.list;
+      this.sf_ulData.forEach(function (v) {
+        v.isshow_li = false;
+      })
     },
     created(){},
     computed : {
 
     },
     component : {
-
     },
     methods: {
-
+      ...mapMutations([
+        'SAVE_ARTICLE_ID'
+      ]),
+      showli(index, newvalue){
+        let obj = Object.assign({},this.sf_ulData[index]);
+        obj.isshow_li = newvalue;
+        Vue.set(this.sf_ulData, index, obj);
+      },
+      select_article(item){
+        this.SAVE_ARTICLE_ID(item);
+      }
     }
   }
 </script>
@@ -63,6 +85,16 @@
     }
     .section_class{
       margin: 10px 20px;
+      .head_section{
+        display: flex;
+        align-items: center;
+        svg{
+          @include wh(16px, 12px);
+          stroke: #b3b3ac;
+          stroke-width: 2;
+          cursor: pointer;
+        }
+      }
       .section_li_class{
         margin: 5px 10px;
       }
@@ -76,6 +108,12 @@
           vertical-align:middle;
           margin-top:-3px;
       }
+    }
+    .show_li-enter-active,.show_li-leave-active{
+      transition: all .3s;
+    }
+    .show_li-enter,.show_li-leave-to{
+      opacity: 0;
     }
   }
 </style>
