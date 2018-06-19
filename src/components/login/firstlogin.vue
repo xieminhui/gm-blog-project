@@ -21,12 +21,13 @@
 				</el-row>
 			</el-form-item>
 			<!-- <el-form-item> -->
-			<el-button class="login-btn" type="primary" @click="submitForm('ruleForm')">登陆</el-button>
+			<el-button class="login-btn" type="primary" @click="login()">登陆</el-button>
 			<!-- </el-form-item> -->
 		</el-form>
 	</div>
 </template>
 <script>
+import axios from 'axios'
 import util from "../../utils/index.js";
 export default {
   data() {
@@ -153,6 +154,9 @@ export default {
     refreshCode() {
       this.ruleForm.code = "";
       this.code.value = util.getRandom(4).join("");
+    },
+    async login(){
+       let admin = await axios.post('/login',{username:'admin',password:'admin'});
     }
   }
 };
