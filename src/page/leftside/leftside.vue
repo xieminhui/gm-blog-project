@@ -4,11 +4,11 @@
     <section class='bgclass'>
       <header>算法</header>
       <section v-for="(item, index) in sf_ulData" :key="item.id" class="section_class">
-        <section class="head_section">
-          <svg v-if="item.isshow_li" @click.self="showli(index, false)">
+        <section class="head_section" @click="showli(index)">
+          <svg v-if="item.isshow_li">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-down"></use>
           </svg>
-          <svg v-else @click="showli(index, true)">
+          <svg v-else>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
           <h2>{{item.name}}</h2>
@@ -51,9 +51,9 @@
       ...mapMutations([
         'SAVE_ARTICLE_ID'
       ]),
-      showli(index, newvalue){
+      showli(index){
         let obj = Object.assign({},this.sf_ulData[index]);
-        obj.isshow_li = newvalue;
+        obj.isshow_li = !obj.isshow_li;
         Vue.set(this.sf_ulData, index, obj);
       },
       select_article(item){
@@ -82,6 +82,7 @@
     header{
       padding:  15px 0;
       text-align: center;
+      cursor: pointer;
     }
     .section_class{
       margin: 10px 20px;
@@ -97,6 +98,7 @@
       }
       .section_li_class{
         margin: 5px 10px;
+        cursor: pointer;
       }
       .section_li_class:before{
           content:'';
